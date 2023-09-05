@@ -1,0 +1,13 @@
+.aprender{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.aprender span{
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.aprender a{
+    color: black;
+    padding: 20px;
+}
