@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Input from '../../components/input/Input.jsx';
 import InputDrop from '../../components/inputDrop/InputDrop.jsx';
-import './Form.css'
+import './Form.css';
 
 export const Formulario = () => {
   const [formData, setFormData] = useState({
