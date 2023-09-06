@@ -29,7 +29,7 @@ export const Formulario = () => {
   });
 
   const handleSubmit = (values) => {
-    console.log("agr deu boa", values);
+    console.log("agr deu boa", values)
   };
 
   return (
