@@ -1,133 +1,149 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Input from '../../components/input/Input.jsx';
 import InputDrop from '../../components/inputDrop/InputDrop.jsx';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
 import './Form.css';
 
 export const Formulario = () => {
-  const [formData, setFormData] = useState({
+  const initialValues = {
     nome: '',
-    datanasc: '',
+    dtnascimento: '',
     endereco: '',
     cursando: '',
     tecnologia: '',
     escolha: '',
     tamanhocamiseta: '',
     responsaveis: '',
-  });
-
-  const handleInputChange = (e) => { 
-    console.log(handleInputChange)
-    const {name, value } = e.target
-    setFormData({
-      ...formData,
-      [name]: value,
-    }) 
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formValues = { ...formData }
-  }
-  const formValues = {
-    nome: formData.nome,
-    datanasc: formData.datanasc,
-    endereco: formData.endereco,
-    cursando: formData.cursando,
-    tecnologia: formData.tecnologia,
-    escolha: formData.escolha,
-    tamanhocamiseta: formData.tamanhocamiseta,
-    responsaveis: formData.responsaveis,
-  }
-  console.log("agr deu boa", formValues)
+  const schema = Yup.object().shape({
+    nome: Yup.string().required("Campo obrigatório"),
+    dtnascimento: Yup.date().required("Campo obrigatório"),
+    endereco: Yup.string().required("Campo obrigatório"),
+    cursando: Yup.string().required("Campo obrigatório"),
+    tecnologia: Yup.string().required("Campo obrigatório"),
+    escolha: Yup.string().required("Campo obrigatório"),
+    tamanhocamiseta: Yup.string().required("Campo obrigatório"),
+    responsaveis: Yup.string().required("Campo obrigatório"),
+  });
+
+  const handleSubmit = (values) => {
+    console.log("agr deu boa", values)
+  };
 
   return (
     <section className='sectionForm'>
-      <form className='form' onSubmit={handleSubmit}>
-        <h1 className='title'>Inscrever-se para o programa de qualificação Aprender e Crescer</h1>
-        <Input
-          placeholder='Digite Seu Nome'
-          type='text'
-          name="nome"
-          value={formData.nome}
-          onChange={handleInputChange}
-        >
-          {formData.nome}
-        </Input>
-        <Input
-          name="datanasc"
-          value={formData.datanasc}
-          onChange={handleInputChange}
-        >
-          Data de Nascimento:
-        </Input>
-        <Input
-          placeholder='Digite Seu Endereço'
-          type='text'
-          name="endereco"
-          value={formData.endereco}
-          onChange={handleInputChange}
-        >
-          Endereço:
-        </Input>
-        <InputDrop
-          name="cursando"
-          value={formData.cursando}
-          onChange={handleInputChange}
-          options={[
-            'Ensino Médio',
-            'Faculdade',
-            'Pós Graduação',
-            'Já sou formado'
-          ]}
-        >
-          Está Cursando:
-        </InputDrop>
-        <InputDrop
-          type='text'
-          name="tecnologia"
-          value={formData.tecnologia}
-          onChange={handleInputChange}
-          options={[
-            'Sim, muito!',
-            'Mais ou Menos',
-            'Não, porém é necessário',
-            'Não gosto nenhum pouco!'
-          ]}
-        >
-          Gosta de Tecnologia?
-        </InputDrop>
-        <InputDrop
-          type='text'
-          name="escolha"
-          value={formData.escolha}
-          onChange={handleInputChange}
-          options={["Programação", "Suporte", "RH", "Design", "Atendimento"]}
-        >
-          Se hoje você pudesse escolher dentro de uma indústria de tecnologia o setor para trabalhar qual é a sua preferência?
-        </InputDrop>
-        <InputDrop
-          placeholder='Digite Seu Nome'
-          type='text'
-          name="tamanhocamiseta"
-          value={formData.tamanhocamiseta}
-          onChange={handleInputChange}
-          options={['PP', 'P', 'M', 'G', 'GG']}
-        >
-          Tamanho da camiseta que você veste:
-        </InputDrop>
-        <Input
-          placeholder='Nome do pai/mãe ou responsável'
-          name="responsaveis"
-          value={formData.responsaveis}
-          onChange={handleInputChange}
-        >
-          Nome completo dos responsáveis, caso não seja maior que 18 anos:
-        </Input>
-        <div className='buttons'>
-          <button className='buttoncleanform'>Limpar Formulário</button>
-          <button className='button' type="submit">Enviar</button>
-        </div>
-      </form>
+      <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={schema}>
+        {({ errors, touched }) => (
+          <Form className='form'>
+            <div style={{display: "flex", alignItems: "center", gap:"20px"}}>
+              <img src="/public/img/aprendereCrescer2.png" alt="" style={{width:"150px", height:"150px"}}/>
+              <h1 className='title'>Inscrever-se para o programa de qualificação Aprender e Crescer</h1>
+            </div>
+            <Input
+              placeholder='Digite Seu Nome'
+              type='text'
+              id="nome"
+              name="nome"
+            >
+              Nome
+            </Input>
+            {errors.nome && touched.nome ? (
+              <div className="error" style={{color:"red"}}>{errors.nome}</div>
+            ) : null}
+            <Input
+              id="dtnascimento"
+              name="dtnascimento"
+              type="date"
+            >
+              Data de Nascimento:
+            </Input>
+            {errors.dtnascimento && touched.dtnascimento ? (
+              <div className="error" style={{color:"red"}}>{errors.dtnascimento}</div>
+            ) : null}
+            <Input
+              placeholder='Digite Seu Endereço'
+              type='text'
+              id="endereco"
+              name="endereco"
+            >
+              Endereço:
+            </Input>
+            {errors.endereco && touched.endereco ? (
+              <div className="error" style={{color:"red"}}>{errors.endereco}</div>
+            ) : null}
+            <InputDrop
+              name="cursando"
+              id="cursando"
+              options={[
+                'Ensino Médio',
+                'Faculdade',
+                'Pós Graduação',
+                'Já sou formado'
+              ]}
+            >
+              Está Cursando:
+            </InputDrop>
+            {errors.cursando && touched.cursando ? (
+              <div className="error" style={{color:"red"}}>{errors.cursando}</div>
+            ) : null}
+            <InputDrop
+              type='text'
+              id="tecnologia"
+              name="tecnologia"
+              options={[
+                'Sim, muito!',
+                'Mais ou Menos',
+                'Não, porém é necessário',
+                'Não gosto nenhum pouco!'
+              ]}
+            >
+              Gosta de Tecnologia?
+            </InputDrop>
+            {errors.tecnologia && touched.tecnologia ? (
+              <div className="error" style={{color:"red"}}>{errors.tecnologia}</div>
+            ) : null}
+            <InputDrop
+              id="escolha"
+              type='text'
+              name="escolha"
+              options={["Programação", "Suporte", "RH", "Design", "Atendimento"]}
+            >
+              Se hoje você pudesse escolher dentro de uma indústria de tecnologia o setor para trabalhar qual é a sua preferência?
+            </InputDrop>
+            {errors.escolha && touched.escolha ? (
+              <div className="error" style={{color:"red"}}>{errors.escolha}</div>
+            ) : null}
+            <InputDrop
+              placeholder='Digite Seu Nome'
+              type='text'
+              id="tamanhocamiseta"
+              name="tamanhocamiseta"
+              options={['PP', 'P', 'M', 'G', 'GG']}
+            >
+              Tamanho da camiseta que você veste:
+            </InputDrop>
+            {errors.tamanhocamiseta && touched.tamanhocamiseta ? (
+              <div className="error" style={{color:"red"}}>{errors.tamanhocamiseta}</div>
+            ) : null}
+            <Input
+              placeholder='Nome do pai/mãe ou responsável'
+              id="responsaveis"
+              name="responsaveis"
+            >
+              Nome completo dos responsáveis, caso não seja maior que 18 anos:
+            </Input>
+            {errors.responsaveis && touched.responsaveis ? (
+              <div className="error" style={{color:"red"}}>{errors.responsaveis}</div>
+            ) : null}
+            <div className='buttons'>
+              <button className='buttoncleanform' type="reset">Limpar Formulário</button>
+              <button className='button' type="submit">Enviar</button>
+            </div>
+          </Form>
+        )}
+      </Formik>
     </section>
   );
 };

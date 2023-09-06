@@ -11,7 +11,7 @@
     padding: 20px;
     background-color: #f7f7f7;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
     margin: auto;
 }
 
@@ -24,7 +24,7 @@
     justify-content: space-between;
 }
 .buttoncleanform{
-    background-color: #ff6969;
+    background-color: #fa3333;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -42,8 +42,8 @@
 }
 
 .button:hover {
-    background-color: #0056b3;
+    background-color: #267edd;
 }
-.cleanform:hover {
-    background-color: #e42d2d;
+.buttoncleanform:hover {
+    background-color: #d33f3f;
 }

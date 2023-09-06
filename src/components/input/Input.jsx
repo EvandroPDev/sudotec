@@ -1,15 +1,16 @@
 import './Input.css'
+import { Field } from 'formik'
 
-const Input = ({placeholder, data, children,type,defaultValue,required,onChange}) => {
+const Input = ({placeholder, children, type, required , name, id}) => {
   return (
     <div className='containerInput'>
         <label className='label'>{children}</label>
-        <input
+        <Field
             className='input'
-            data={data}
+            id={id}
+            name={name}
             type={type}
             placeholder={placeholder}
-            defaultValue={defaultValue}
             required={required}
          />
     </div>
