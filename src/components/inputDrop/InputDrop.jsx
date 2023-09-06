@@ -1,30 +1,31 @@
 import React, { useState } from 'react';
-import './InputDrop.modules.css'; // Importe o arquivo CSS com os estilos
+import { Field, useFormikContext } from 'formik'; // Importe useFormikContext
+import './InputDrop.modules.css';
 
-const InputDrop = ({ options, children }) => {
-  const [selectedOption, setSelectedOption] = useState('');
+const InputDrop = ({ options, children, name, id }) => {
+
+  const { setFieldValue } = useFormikContext();
+  const selectedOptionFromFormik = useFormikContext().values[name];
 
   const handleSelectChange = (e) => {
-    setSelectedOption(e.target.value);
+    const selectedValue = e.target.value;
+    setFieldValue(name, selectedValue);
   };
 
   return (
     <div className="containerInput">
       <label>{children}</label>
-      <select value={selectedOption} onChange={handleSelectChange}>
+      <Field as="select" name={name} id={id} onChange={handleSelectChange}>
         <option value="">Selecione uma opção</option>
         {options.map((option, index) => (
           <option key={index} value={option}>
             {option}
           </option>
         ))}
-      </select>
-      {selectedOption && <p>Você selecionou: {selectedOption}</p>}
+      </Field>
+      {selectedOptionFromFormik && <p>Você selecionou: {selectedOptionFromFormik}</p>}
     </div>
   );
 };
 
 export default InputDrop;
-
-
-
