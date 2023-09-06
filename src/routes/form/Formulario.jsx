@@ -1,7 +1,7 @@
 import React from 'react';
 import Input from '../../components/input/Input.jsx';
 import InputDrop from '../../components/inputDrop/InputDrop.jsx';
-import { Formik, Form, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import './Form.css';
 
